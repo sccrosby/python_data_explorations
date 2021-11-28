@@ -10,15 +10,36 @@
 # - Predicting 6-hour in advance, MAE ~ 2.2 m/s, similar between models
 # - Predicting 12-hour in advance, MAE ~ 2.6-2.7, Random Forest has better skill by ~0.2 m/s
 
+# Required Packages
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 from datetime import datetime,timedelta
 from scipy import io,signal
+import time
 
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
+from sklearn.base import BaseEstimator, TransformerMixin
+
+# Data paths
+fobs = '../../offline_data/buoy_bulkwave_met_obs_qc.mat'
+fpred = '../../offline_data/cfsr_buoy_met_pred.mat'
+
+
+
+class CreateHistoryLabels(BaseEstimator, TransformerMixin):
+    def __init__(self,hr_forward,hr_back=6):
+        self.hr_back = hr_back
+        self.hr_forward = hr_forward
+    def fit(self, X, y=None):
+        return self
+    def transform(self, X):
+
+
+
 
 def matlab2datetime(matlab_datenum):
     day = datetime.fromordinal(int(matlab_datenum))
