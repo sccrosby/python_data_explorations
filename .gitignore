@@ -1,5 +1,5 @@
 # Custom
-.png
+*.png
 figures/
 
 # Byte-compiled / optimized / DLL files
